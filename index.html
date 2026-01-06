@@ -176,19 +176,28 @@
           data-cat="${c}">${c}</button>
       `).join("");
 
-      const cards = filtered.map(p=>`
-        <div class="prod">
-          <img src="${p.image}" alt="${p.name}"/>
-          <div class="meta">
-            <div class="name">${p.name}</div>
-            <div class="price">${p.price}</div>
-            <div class="actions">
-              <button class="btn outline" data-view="${p.id}">View</button>
-              <button class="btn gold" data-buy="${p.id}">Buy</button>
-            </div>
-          </div>
-        </div>
-      `).join("");
+      const cards = (filtered.length ? filtered : Array.from({length: 6}).map((_,i)=>({
+  id: `placeholder-${i}`,
+  name: "Coming Soon",
+  price: "",
+  category: "",
+  squareLink: ""
+}))).map(p=>`
+  <div class="prod">
+    <div style="height:140px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.35);font-weight:900;">
+      Product image coming soon
+    </div>
+    <div class="meta">
+      <div class="name">${p.name}</div>
+      <div class="price">${p.price || ""}</div>
+      <div class="actions">
+        <button class="btn outline" disabled>View</button>
+        <button class="btn gold" disabled>Buy</button>
+      </div>
+    </div>
+  </div>
+`).join("");
+
 
       app.innerHTML = `
         <div class="wrap">
