@@ -379,7 +379,10 @@
       let aff = getAffiliate();
       if(!aff || !aff.code){ aff = { code:"", at: Date.now() }; }
 
-      const baseUrl = (window.location.origin && window.location.origin !== "null") ? window.location.origin : "https://yourapp.com";
+      const baseUrl = window.location.href
+  .split("?")[0]
+  .replace(/index\.html$/i, "");
+
       const shareLink = aff.code ? `${baseUrl}/?aff=${encodeURIComponent(aff.code)}` : "";
       const clicks = store.get("chb_clicks", {});
       const totalClicks = Object.values(clicks).reduce((a,b)=>a+b,0);
